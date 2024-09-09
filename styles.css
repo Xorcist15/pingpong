@@ -1,0 +1,89 @@
+:root {
+  --game-width: 1200px;
+  --game-height: 700px;
+  --game-background-color: black;
+
+  --paddle-width: 30px;
+  --paddle-height: 150px;
+  --paddle-offset: 30px;
+
+  --paddle-background-color: #d9d9d9;
+  --font-size: 10px;
+
+  --ball-background-color: #d9d9d9;
+  --ball-radius: 20px;
+
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: green solid;
+  height: 100vh;
+  width: 100vw;
+  background-color: blue;
+  flex-direction: column;
+}
+
+.title {
+  text-align: center;
+  width: 100vw;
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 10;
+  font-style: bold;
+  font-size: 15rem;
+  margin-bottom: -10rem;
+}
+
+.pingpong {
+  width: var(--game-width);
+  height: var(--game-height);
+  min-width: 400px;
+  min-height: 100px;
+  margin: auto auto;
+  background-color: var(--game-background-color);
+  position: relative;
+  border-top: 30px solid white;
+  border-bottom: 30px solid white;
+}
+
+#divider {
+  height: 100%;
+  width: 30px;
+  border-left: 30px dashed white;
+  position: absolute;
+  left: calc(var(--game-width) / 2 + 30px / 2)
+}
+
+.pingpong .paddle {
+  width: var(--paddle-width);
+  height: var(--paddle-height);
+  background-color: var(--paddle-background-color);
+}
+
+#left {
+  position: absolute;
+  left: var(--paddle-offset);
+}
+
+#right {
+  position: absolute;
+  left: calc(var(--game-width) - var(--paddle-width) - var(--paddle-offset))
+}
+
+.ball {
+  position: absolute;
+  background-color: var(--ball-background-color);
+  width: calc(var(--ball-radius) * 2);
+  height: calc(var(--ball-radius) * 2);
+  border-radius: 50%;
+  left: calc(var(--game-width) / 2 - var(--ball-radius));
+}
