@@ -60,7 +60,7 @@ body {
   width: 30px;
   border-left: 30px dashed white;
   position: absolute;
-  left: calc(var(--game-width) / 2 + 30px / 2)
+  left: calc(var(--game-width) / 2 - 30px / 2)
 }
 
 .pingpong .paddle {
