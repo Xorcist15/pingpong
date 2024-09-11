@@ -3,6 +3,7 @@ const paddle2 = document.getElementById("right");
 const ball = document.getElementById("ball");
 const scoreleft = document.getElementById("scoreleft");
 const scoreright = document.getElementById("scoreright");
+const gameArea = document.getElementById("pingpong");
 
 let ballX = pingpong.clientWidth / 2;
 let ballY = pingpong.clientHeight / 2;
@@ -57,6 +58,10 @@ function update() {
   if (ballY >= limitY ||
     ballY <= 0) {
     ballSpeedY = -ballSpeedY;
+  }
+
+  if (ballX >= limitX || ballX < 0) {
+    ballSpeedX = -ballSpeedX;
   }
 
   // add point player left
