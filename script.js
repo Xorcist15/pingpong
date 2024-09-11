@@ -1,4 +1,3 @@
-const gameArea = document.getElementById("pingpong");
 const paddle1 = document.getElementById("left");
 const paddle2 = document.getElementById("right");
 const ball = document.getElementById("ball");
@@ -8,7 +7,7 @@ const scoreright = document.getElementById("scoreright");
 let ballX = pingpong.clientWidth / 2;
 let ballY = pingpong.clientHeight / 2;
 
-const speed = 1;
+const speed = 7;
 let ballSpeedX = speed;
 let ballSpeedY = speed;
 
@@ -17,7 +16,7 @@ let scoreR = 0;
 
 let paddle1Y = paddle1.offsetTop;
 let paddle2Y = paddle2.offsetTop;
-const paddleSpeed = 1;
+const paddleSpeed = 20;
 
 document.addEventListener('keydown', (e) => {
   switch (e.key) {
@@ -60,17 +59,16 @@ function update() {
     ballSpeedY = -ballSpeedY;
   }
 
-  // Same logic used to calculate players score
+  // add point player left
   if (ballX >= limitX) {
-    // add point player left
     scoreL++;
     scoreleft.innerText = scoreL;
     console.log("Left Player scored");
     resetBall()
   }
 
+  // add point player right
   if (ballX <= 0) {
-    // add point player right
     scoreR++;
     scoreright.innerText = scoreR;
     console.log("Right Player scored");
@@ -78,12 +76,12 @@ function update() {
   }
 
   // Ball collision with paddles
-  if (ballX <= paddle1.clientWidth &&
+  if (ballX <= paddle1.clientWidth + paddle1.offsetLeft &&
     ballY >= paddle1.offsetTop &&
     ballY <= paddle1.offsetTop + paddle1.clientHeight) {
     ballSpeedX = -ballSpeedX;
   }
-  if (ballX >= gameArea.clientWidth - paddle2.clientWidth - ball.clientWidth &&
+  if (ballX >= gameArea.clientWidth - (paddle2.clientWidth + ball.clientWidth + (gameArea.clientWidth - (paddle2.offsetLeft + paddle2.clientWidth))) &&
     ballY >= paddle2.offsetTop &&
     ballY <= paddle2.offsetTop + paddle2.clientHeight) {
     ballSpeedX = -ballSpeedX;
