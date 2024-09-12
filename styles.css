@@ -1,18 +1,23 @@
 :root {
-  --game-width: 1200px;
-  --game-height: 700px;
+  --game-width: 70vw;
+  --game-height: 100%;
   --game-background-color: black;
 
-  --paddle-width: 30px;
+  --paddle-width: 10px;
   --paddle-height: 150px;
   --paddle-offset: 30px;
 
-  --paddle-background-color: #d9d9d9;
+  --paddle1-background-color: red;
+  --paddle2-background-color: blue;
   --font-size: 10px;
 
   --ball-background-color: #d9d9d9;
   --ball-radius: 10px;
+
+  --score-width: ;
+  --score-height: ;
 }
+
 
 html {
   font-size: var(--font-size);
@@ -65,33 +70,18 @@ body {
 .pingpong .paddle {
   width: var(--paddle-width);
   height: var(--paddle-height);
-  background-color: var(--paddle-background-color);
 }
 
 #left {
   position: absolute;
   left: var(--paddle-offset);
+  background-color: var(--paddle1-background-color);
 }
 
 #right {
   position: absolute;
-  left: calc(var(--game-width) - var(--paddle-width) - var(--paddle-offset))
-}
-
-#scoreleft {
-  width: 70px;
-  height: 70px;
-  color: white;
-  position: absolute;
-  left: calc(var(--game-width) / 2 - 100px);
-}
-
-#scoreright {
-  width: 70px;
-  height: 70px;
-  color: white;
-  position: absolute;
-  left: calc(var(--game-width) / 2 + 100px / 2);
+  left: calc(var(--game-width) - var(--paddle-width) - var(--paddle-offset));
+  background-color: var(--paddle2-background-color);
 }
 
 #scoreleft,
@@ -101,6 +91,20 @@ body {
   font-weight: 10;
   font-style: bold;
   font-size: 10rem;
+}
+
+#scoreleft {
+  color: white;
+  position: absolute;
+  left: calc(var(--game-width) / 4);
+  color: var(--paddle1-background-color);
+}
+
+#scoreright {
+  color: white;
+  position: absolute;
+  left: calc(var(--game-width) * 0.75);
+  color: var(--paddle2-background-color);
 }
 
 .ball {
