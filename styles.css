@@ -3,24 +3,21 @@
   --game-height: 100%;
   --game-background-color: black;
 
-  --paddle-width: 10px;
+  --paddle-width: 20px;
   --paddle-height: 150px;
-  --paddle-offset: 30px;
+  --paddle-offset: 20px;
 
   --paddle1-background-color: red;
   --paddle2-background-color: blue;
-  --font-size: 10px;
+  --font-size: 20px;
 
   --ball-background-color: #d9d9d9;
   --ball-radius: 10px;
-
-  --score-width: ;
-  --score-height: ;
 }
-
 
 html {
   font-size: var(--font-size);
+  overflow: hidden;
 }
 
 body {
@@ -29,22 +26,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: green solid;
   height: 100vh;
   width: 100vw;
-  background-color: blue;
+  background-color: black;
   flex-direction: column;
-}
-
-.title {
-  text-align: center;
-  width: 100vw;
-  font-family: "Pixelify Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 10;
-  font-style: bold;
-  font-size: 15rem;
-  margin-bottom: -10rem;
 }
 
 .pingpong {
@@ -113,4 +98,19 @@ body {
   width: calc(var(--ball-radius) * 2);
   height: calc(var(--ball-radius) * 2);
   left: calc(var(--game-width) / 2 - var(--ball-radius));
+  z-index: 1;
+}
+
+#winnerMessage {
+  display: none;
+  box-shadow: 10px 5px 5px red;
+  width: 400px;
+  height: 100px;
+  color: red;
+  font-size: 6rem;
+  margin: auto auto;
+  position: absolute;
+  top: 200px;
+  left: calc(var(--game-width) / 2 - 200px);
+  background-color: white;
 }

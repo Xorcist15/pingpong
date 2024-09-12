@@ -4,11 +4,14 @@ const ball = document.getElementById("ball");
 const scoreleft = document.getElementById("scoreleft");
 const scoreright = document.getElementById("scoreright");
 const gameArea = document.getElementById("pingpong");
+const winnerMsg = document.getElementById("winnerMessage");
+
+console.log(winnerMsg.innerText);
 
 let ballX = pingpong.clientWidth / 2;
 let ballY = pingpong.clientHeight / 2;
 
-const speed = 10;
+const speed = 8;
 let ballSpeedX = speed;
 let ballSpeedY = speed;
 
@@ -35,6 +38,13 @@ function calculateBounceAngle(ballY, paddleY, paddleHeight) {
   // Max bounce angle is 45 degrees
   const bounceAngle = normalizedRelativeIntersectionY * Math.PI / 4;
   return bounceAngle;
+}
+
+function displayWinnerMsg() {
+  scoreL = 0;
+  scoreR = 0;
+  winnerMsg.style.display = "block";
+  resetBall();
 }
 
 const limitX = pingpong.clientWidth - ball.clientWidth;
@@ -92,17 +102,23 @@ function update() {
   }
 
   // add point player left
-  if (ballX >= paddle2Limit + paddle2.clientWidth) {
+  if (ballX >= gameArea.clientWidth - ball.clientWidth) {
     scoreL++;
     scoreleft.innerText = scoreL;
     resetBall();
   }
 
   // add point player right
-  if (ballX <= paddle1Limit - paddle1.clientWidth) {
+  if (ballX <= 0) {
     scoreR++;
     scoreright.innerText = scoreR;
     resetBall();
+  }
+
+  if (scoreR === 10) {
+    displayWinnerMsg();
+  } else if (scoreL === 10) {
+    displayWinnerMsg();
   }
 
   // Ball collision with left paddle 
