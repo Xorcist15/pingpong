@@ -38,6 +38,11 @@ let paddle2Down = false;
 // MAX score points
 const MAX_SCORE = 10;
 
+// Sound effets
+const paddle = new Audio('../assets/paddle-sfx.mp3');
+const wall = new Audio('../assets/wall-sfx.mp3');
+const score = new Audio('../assets/score-sfx.mp3');
+
 function ResetBall() {
   ballX = gameArea.clientWidth / 2;
   ballY = gameArea.clientHeight / 2;
@@ -67,12 +72,12 @@ function DisplayWinnerBox(player) {
   switch (player) {
     case "RED":
       winner = 'RED';
-      winnerBox.setAttribute("class", 'winnerMessageRed')
+      winnerBox.setAttribute("class", 'winnerMessageRed');
       replayBtn.setAttribute('class', 'replayRed');
       break;
     case "BLUE":
       winner = 'BLUE';
-      winnerBox.setAttribute("class", 'winnerMessageBlue')
+      winnerBox.setAttribute("class", 'winnerMessageBlue');
       replayBtn.setAttribute('class', 'replayBlue');
       break;
   }
@@ -136,7 +141,7 @@ document.addEventListener('keyup', (e) => {
 replayBtn.onclick = () => {
   ResetGame();
   winnerBox.style.display = "none";
-}
+};
 
 SetGame();
 
@@ -149,12 +154,14 @@ function update() {
   if (ballY <= 0) {
     ballY = 0; // Adjust position to the limit
     ballSpeedY = -ballSpeedY; // Reverse direction
+    wall.play();
   }
 
   // test bottom collision
   if (ballY >= limitY) {
     ballY = limitY; // Adjust position to the limit
     ballSpeedY = -ballSpeedY; // Reverse direction
+    wall.play();
   }
 
   // check if any player has one
@@ -168,6 +175,7 @@ function update() {
   if (ballX >= gameArea.clientWidth - ball.clientWidth) {
     scoreL++;
     scoreleft.innerText = scoreL;
+    score.play();
     ResetBall();
   }
 
@@ -175,6 +183,7 @@ function update() {
   if (ballX <= 0) {
     scoreR++;
     scoreright.innerText = scoreR;
+    score.play();
     ResetBall();
   }
 
@@ -192,6 +201,7 @@ function update() {
     ballSpeedX += (ballSpeedX > 0 ? speedIncr : -speedIncr);
     ballSpeedY += (ballSpeedY > 0 ? speedIncr : -speedIncr);
     ballX = paddle1.offsetLeft + paddle1.clientWidth; // Adjust position to avoid sticking
+    paddle.play();
   }
 
   // Ball collision with right paddle
@@ -208,6 +218,7 @@ function update() {
     ballSpeedX += (ballSpeedX > 0 ? speedIncr : -speedIncr);
     ballSpeedY += (ballSpeedY > 0 ? speedIncr : -speedIncr);
     ballX = paddle2.offsetLeft - ball.clientWidth; // Adjust position to avoid sticking
+    paddle.play();
   }
 
   // update ball coordinates
