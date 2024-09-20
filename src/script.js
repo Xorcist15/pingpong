@@ -47,9 +47,11 @@ function ResetBall() {
   ballX = gameArea.clientWidth / 2;
   ballY = gameArea.clientHeight / 2;
 
-  // Random angle between -45 and 45 degrees
+  // random angle between -45deg and 45deg
   const initialAngle = (Math.random() * Math.PI / 2) - (Math.PI / 4);
+  // calculate horizontal speed of the ball
   ballSpeedX = speed * Math.cos(initialAngle);
+  // calculate vertical speed of the ball 
   ballSpeedY = speed * Math.sin(initialAngle);
 
   // make first throw direction random
@@ -60,9 +62,15 @@ function ResetBall() {
 }
 
 function CalculateBounceAngle(ballY, paddleY, paddleHeight) {
+  // distance between center of paddle and ball Y-coord
+  // positive if ball below center
+  // negative if ball above center
   const relativeIntersectY = (paddleY + (paddleHeight / 2)) - ballY;
+  // normalizes the value of relativeIntersectY to a value
+  // between -1 and 1 (-1 being the top and 1 the bottom)
   const normalizedRelativeIntersectionY = (relativeIntersectY / (paddleHeight / 2));
-  // Max bounce angle is 45 degrees
+  // angle between -45deg and 45deg depending on
+  // normalizedRelativeIntersectionY
   const bounceAngle = normalizedRelativeIntersectionY * Math.PI / 4;
   return bounceAngle;
 }
@@ -84,6 +92,20 @@ function DisplayWinnerBox(player) {
   winnerMsg.innerText = "PLAYER " + winner + " WINS";
   winnerBox.style.display = "block";
   PauseGame();
+
+  // function removes itself after one usage 
+  // to ensure it cannot be called during game
+  function handleKeyDown(e) {
+    switch (e.key) {
+      case ' ':
+        console.log("hello space");
+        replayBtn.click();
+        // removes the event listener after usage
+        document.removeEventListener('keydown', handleKeyDown);
+        break;
+    }
+  }
+  document.addEventListener('keydown', handleKeyDown);
 }
 
 function PauseGame() {
@@ -154,14 +176,14 @@ function update() {
   if (ballY <= 0) {
     ballY = 0; // Adjust position to the limit
     ballSpeedY = -ballSpeedY; // Reverse direction
-    wall.play();
+    wall.play(); // plays wall sfx
   }
 
   // test bottom collision
   if (ballY >= limitY) {
     ballY = limitY; // Adjust position to the limit
     ballSpeedY = -ballSpeedY; // Reverse direction
-    wall.play();
+    wall.play(); // plays wall sfx
   }
 
   // check if any player has one
