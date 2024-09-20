@@ -36,9 +36,9 @@ let paddle2Up = false;
 let paddle2Down = false;
 
 // MAX score points
-const MAX_SCORE = 10;
+const MAX_SCORE = 2;
 
-// Sound effets
+// SFX (Sound effects)
 const paddle = new Audio('../assets/paddle-sfx.mp3');
 const wall = new Audio('../assets/wall-sfx.mp3');
 const score = new Audio('../assets/score-sfx.mp3');
@@ -226,6 +226,7 @@ function update() {
   ball.style.top = ballY + 'px';
 
   // logic for paddle movement 
+  // test si prochain mouvement sort ou non
   if (paddle1Up) {
     paddle1Y = Math.max(paddle1Y - paddleSpeed, 0);
   }
