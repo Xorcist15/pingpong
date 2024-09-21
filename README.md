@@ -1,29 +1,19 @@
 # Pong Game
 
-Implementation simple du jeu classic Pong sortie en 1972.
-
-## Table of Contents
-
-- [Description](#description)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
+Implementation simple du jeu classic Pong sortie en 1972, avec des modification au look/feel du jeu.
 
 ## Description
 
-HTML/CSS/JS pour le developpement du jeu, ce qui a permis de le developper en 3 soirees.
+Developpe en HTML/CSS/JS 
 
 ## Features
 
 - Local uniquement
-- Sfx pour les collisions avec la palette, le score et les murs
+- Sfx pour les collisions avec les raquette, le score et les murs
 - Design simple
-- Layout responsif (Rafraichir la page a chaque changement de taille de la fenetre)
+- Layout responsif (il faut rafraichir la page a chaque changement de taille de la fenetre)
 
-- ## Installation
-
-
+## Installation
 1. Cloner le depot:
 
     ```bash
@@ -36,9 +26,9 @@ HTML/CSS/JS pour le developpement du jeu, ce qui a permis de le developper en 3 
     cd pong-game	
     ```
 
-3. Ouvrir `src/pingpong.html` dans votre browser prefere.
+3. Ouvrir `src/pingpong.html` dans votre naviguateur prefere.
 
 ## Controles
 
 - fleches up/down pour le joueur de droite
-- caracteres w/s pour le jouer de gauche (peuvent etre changer dans le fichier script.js dans les 2 fonctions lignes 109 et 126)
+- caracteres z|w/s

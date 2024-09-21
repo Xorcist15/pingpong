@@ -67,11 +67,15 @@ function CalculateBounceAngle(ballY, paddleY, paddleHeight) {
   // negative if ball above center
   const relativeIntersectY = (paddleY + (paddleHeight / 2)) - ballY;
   // normalizes the value of relativeIntersectY to a value
-  // between -1 and 1 (-1 being the top and 1 the bottom)
+  // between -1 and 1 (negative if nearer to top and 1 to bottom)
+  // normalization is required because sin/cos produce outcomes
+  // for -1 to 1 value of theta
   const normalizedRelativeIntersectionY = (relativeIntersectY / (paddleHeight / 2));
+  console.log(normalizedRelativeIntersectionY);
   // angle between -45deg and 45deg depending on
   // normalizedRelativeIntersectionY
   const bounceAngle = normalizedRelativeIntersectionY * Math.PI / 4;
+  console.log(bounceAngle);
   return bounceAngle;
 }
 
@@ -117,18 +121,16 @@ function ResetGame() {
   scoreL = 0;
   scoreR = 0;
   ResetBall();
-  SetGame();
-}
-
-// set game defaults
-function SetGame() {
+  // set score to default value when restarting game 
   scoreleft.innerText = 0;
   scoreright.innerText = 0;
 }
 
+
 document.addEventListener('keydown', (e) => {
   switch (e.key) {
     case 'w':
+    case 'z':
       paddle1Up = true;
       break;
     case 's':
@@ -146,6 +148,7 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('keyup', (e) => {
   switch (e.key) {
     case 'w':
+    case 'z':
       paddle1Up = false;
       break;
     case 's':
@@ -165,35 +168,36 @@ replayBtn.onclick = () => {
   winnerBox.style.display = "none";
 };
 
-SetGame();
+scoreleft.innerText = 0;
+scoreright.innerText = 0;
 
 function update() {
   // update ball speed
   ballX += ballSpeedX;
   ballY += ballSpeedY;
 
-  // test top collision
+  // test ball top collision
   if (ballY <= 0) {
     ballY = 0; // Adjust position to the limit
     ballSpeedY = -ballSpeedY; // Reverse direction
     wall.play(); // plays wall sfx
   }
 
-  // test bottom collision
+  // test ball bottom collision
   if (ballY >= limitY) {
-    ballY = limitY; // Adjust position to the limit
-    ballSpeedY = -ballSpeedY; // Reverse direction
-    wall.play(); // plays wall sfx
+    ballY = limitY;
+    ballSpeedY = -ballSpeedY;
+    wall.play();
   }
 
-  // check if any player has one
+  // check if any player has won
   if (scoreR === MAX_SCORE) {
     DisplayWinnerBox("BLUE");
   } else if (scoreL === MAX_SCORE) {
     DisplayWinnerBox("RED");
   }
 
-  // add point player left
+  // add point to player left
   if (ballX >= gameArea.clientWidth - ball.clientWidth) {
     scoreL++;
     scoreleft.innerText = scoreL;
@@ -201,7 +205,7 @@ function update() {
     ResetBall();
   }
 
-  // add point player right
+  // add point to player right
   if (ballX <= 0) {
     scoreR++;
     scoreright.innerText = scoreR;
@@ -211,18 +215,26 @@ function update() {
 
   // Ball collision with left paddle 
   if (
+    // test if ball touch paddle (horizontal overlap) 
     ballX <= paddle1.offsetLeft + paddle1.clientWidth &&
+    // test if ball went past paddle (horizontal overlap) 
     ballX + ball.clientWidth >= paddle1.offsetLeft &&
+    // test if ball is within range of paddle (bottom edge)
     ballY + ball.clientHeight >= paddle1.offsetTop &&
+    // test if ball is within range of paddle (top edge)
     ballY <= paddle1.offsetTop + paddle1.clientHeight
   ) {
     const bounceAngle = CalculateBounceAngle(ballY + ball.clientHeight / 2, paddle1.offsetTop, paddle1.clientHeight);
+    // calculate horizontal movement
     ballSpeedX = speed * Math.cos(bounceAngle);
+    // calculate vertical movement
     ballSpeedY = speed * -Math.sin(bounceAngle);
-    // increment speed
+    // increment speed depending on direction
     ballSpeedX += (ballSpeedX > 0 ? speedIncr : -speedIncr);
     ballSpeedY += (ballSpeedY > 0 ? speedIncr : -speedIncr);
-    ballX = paddle1.offsetLeft + paddle1.clientWidth; // Adjust position to avoid sticking
+    // Adjust position to avoid sticking
+    ballX = paddle1.offsetLeft + paddle1.clientWidth;
+    // play paddle hitting sound
     paddle.play();
   }
 
@@ -236,10 +248,9 @@ function update() {
     const bounceAngle = CalculateBounceAngle(ballY + ball.clientHeight / 2, paddle2.offsetTop, paddle2.clientHeight);
     ballSpeedX = -speed * Math.cos(bounceAngle);
     ballSpeedY = speed * -Math.sin(bounceAngle);
-    // increment speed
     ballSpeedX += (ballSpeedX > 0 ? speedIncr : -speedIncr);
     ballSpeedY += (ballSpeedY > 0 ? speedIncr : -speedIncr);
-    ballX = paddle2.offsetLeft - ball.clientWidth; // Adjust position to avoid sticking
+    ballX = paddle2.offsetLeft - ball.clientWidth;
     paddle.play();
   }
 
@@ -248,13 +259,15 @@ function update() {
   ball.style.top = ballY + 'px';
 
   // logic for paddle movement 
-  // test si prochain mouvement sort ou non
   if (paddle1Up) {
+    // test if paddle go below 0
     paddle1Y = Math.max(paddle1Y - paddleSpeed, 0);
   }
   if (paddle1Down) {
+    // test if paddle go beyond game height
     paddle1Y = Math.min(paddle1Y + paddleSpeed, gameArea.clientHeight - paddle1.clientHeight);
   }
+  // update paddle movement accordingly
   paddle1.style.top = paddle1Y + "px";
 
   if (paddle2Up) {
