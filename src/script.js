@@ -12,6 +12,7 @@ const replayBtn = document.getElementById("replay");
 // Ball variables 
 const speed = 6;
 const speedIncr = 6;
+
 let ballSpeedX = speed;
 let ballSpeedY = speed;
 let ballX = gameArea.clientWidth / 2;
@@ -32,6 +33,7 @@ const limitY = gameArea.clientHeight - ball.clientHeight;
 // Used to detect paddle movements
 let paddle1Up = false;
 let paddle1Down = false;
+
 let paddle2Up = false;
 let paddle2Down = false;
 
@@ -42,6 +44,42 @@ const MAX_SCORE = 2;
 const paddle = new Audio('../assets/paddle-sfx.mp3');
 const wall = new Audio('../assets/wall-sfx.mp3');
 const score = new Audio('../assets/score-sfx.mp3');
+
+document.addEventListener('keydown', (e) => {
+  switch (e.key) {
+    case 'w':
+    case 'z':
+      paddle1Up = true;
+      break;
+    case 's':
+      paddle1Down = true;
+      break;
+    case 'ArrowUp':
+      paddle2Up = true;
+      break;
+    case 'ArrowDown':
+      paddle2Down = true;
+      break;
+  }
+});
+
+document.addEventListener('keyup', (e) => {
+  switch (e.key) {
+    case 'w':
+    case 'z':
+      paddle1Up = false;
+      break;
+    case 's':
+      paddle1Down = false;
+      break;
+    case 'ArrowUp':
+      paddle2Up = false;
+      break;
+    case 'ArrowDown':
+      paddle2Down = false;
+      break;
+  }
+});
 
 function ResetBall() {
   ballX = gameArea.clientWidth / 2;
@@ -56,13 +94,13 @@ function ResetBall() {
 
   // make first throw direction random
   const dir = Math.floor(Math.random() * 2);
-  if (dir == 1) {
+  if (dir === 1) {
     ballSpeedX = -ballSpeedX;
   }
 }
 
 function CalculateBounceAngle(ballY, paddleY, paddleHeight) {
-  // distance between center of paddle and ball Y-coord
+  // distance between center of paddle and center of ball
   // positive if ball below center
   // negative if ball above center
   const relativeIntersectY = (paddleY + (paddleHeight / 2)) - ballY;
@@ -126,43 +164,6 @@ function ResetGame() {
   scoreright.innerText = 0;
 }
 
-
-document.addEventListener('keydown', (e) => {
-  switch (e.key) {
-    case 'w':
-    case 'z':
-      paddle1Up = true;
-      break;
-    case 's':
-      paddle1Down = true;
-      break;
-    case 'ArrowUp':
-      paddle2Up = true;
-      break;
-    case 'ArrowDown':
-      paddle2Down = true;
-      break;
-  }
-});
-
-document.addEventListener('keyup', (e) => {
-  switch (e.key) {
-    case 'w':
-    case 'z':
-      paddle1Up = false;
-      break;
-    case 's':
-      paddle1Down = false;
-      break;
-    case 'ArrowUp':
-      paddle2Up = false;
-      break;
-    case 'ArrowDown':
-      paddle2Down = false;
-      break;
-  }
-});
-
 replayBtn.onclick = () => {
   ResetGame();
   winnerBox.style.display = "none";
@@ -224,6 +225,7 @@ function update() {
     // test if ball is within range of paddle (top edge)
     ballY <= paddle1.offsetTop + paddle1.clientHeight
   ) {
+    // ball center, 
     const bounceAngle = CalculateBounceAngle(ballY + ball.clientHeight / 2, paddle1.offsetTop, paddle1.clientHeight);
     // calculate horizontal movement
     ballSpeedX = speed * Math.cos(bounceAngle);
