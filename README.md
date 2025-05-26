@@ -1,34 +1,58 @@
-# Pong Game
+# 🏓 Jeu de Ping Pong (HTML/CSS/JS)
 
-Implementation simple du jeu classic Pong sortie en 1972, avec des modification au look/feel du jeu.
+![picture of said game](./img/pingpong-whole.jpg)
 
-## Description
+## 🎮 Description
 
-Developpe en HTML/CSS/JS 
+Petit jeu de **Ping Pong** réalisé en **HTML**, **CSS** et **JavaScript**. Le jeu fonctionne comme la version classique : une balle rebondit entre deux raquettes.
 
-## Features
+---
 
-- Local uniquement
-- Sfx pour les collisions avec les raquette, le score et les murs
-- Design simple
-- Layout responsif (il faut rafraichir la page a chaque changement de taille de la fenetre)
+## ⚙️ Fonctionnalités
 
-## Installation
-1. Cloner le depot:
+* ✅ Physique de balle réaliste avec **angles calculés dynamiquement avec pi**
+* ✅ Contrôle fluide du joueur avec clavier
+* ✅ Score affiché en temps réel
+* ✅ Interface simple en HTML/CSS
 
-    ```bash
-    git clone https://github.com/Xorcist15/pingpong
-    ```
+---
 
-2. Naviguer vers le dossier:
+## 🧠 Détail technique
 
-    ```bash
-    cd pong-game	
-    ```
+* L’**angle de rebond** est calculé à l’aide de `Math.PI`, selon la position de la balle sur la raquette au moment de l’impact.
+* Cela permet des trajectoires variées, rendant le jeu plus dynamique et moins prévisible.
 
-3. Ouvrir `src/pingpong.html` dans votre naviguateur prefere.
+---
 
-## Controles
+## ⌨️ Contrôles
 
-- fleches up/down pour le joueur de droite
-- caracteres z|w/s
+| Touche | Action                     |
+| ------ | -------------------------- |
+| `W`    | Monter (joueur 1)          |
+| `S`    | Descendre (joueur 1)       |
+| `↑`    | Monter (joueur 2)    |
+| `↓`    | Descendre (joueur 2) |
+
+---
+
+## 📦 Technologies utilisées
+
+* HTML5
+* CSS3
+* JavaScript (vanilla, sans librairie externe)
+
+---
+
+## 📁 Installation
+
+Aucune installation nécessaire.
+
+1. Clone ou télécharge le dépôt
+2. Ouvre simplement le fichier `index.html` dans un navigateur moderne
+
+---
+
+## 📍 Remarques
+
+* Code simple et commenté pour faciliter la compréhension
+* Bon point de départ pour apprendre la manipulation des **collisions**, et les **animations en JS**
