@@ -1,5 +1,7 @@
 # 🏓 Jeu de Ping Pong (HTML/CSS/JS)
 
+link: https://xorcist15.github.io/pingpong/
+
 ![picture of said game](./img/pingpong-whole.jpg)
 
 ## 🎮 Description
